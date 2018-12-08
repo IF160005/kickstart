@@ -9,7 +9,7 @@
 namespace App\FormatterService;
 
 
-class NumberFormatter
+class NumberFormatter implements NumberFormatterInterface
 {
     /**
      * @param float $number
