@@ -59,7 +59,7 @@ class NumberFormatter implements NumberFormatterInterface
      * @param float $number
      * @return string
      */
-    public function numberFormatter(float $number): string
+    public function numberFormatter( $number): string
     {
         $isNegative = "";
         if ($number < 0) {
