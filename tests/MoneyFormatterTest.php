@@ -8,15 +8,29 @@ use PHPUnit\Framework\TestCase;
 
 class MoneyFormatterTest extends TestCase
 {
-    public function testMoneyFormat()
+    public function providerNumber()
     {
-        $number = $this->createMock(NumberFormatterInterface::class);
-        $number->expects($this->exactly(2))
-            ->method('numberFormatter')
-            ->willReturn('2.84M');
-        $moneyFormatter = new MoneyFormatter($number);
-        $this->assertEquals("$2.84M", $moneyFormatter->formatUsd(2835779));
-        $this->assertEquals("2.84M €", $moneyFormatter->formatEur(2835779));
+        return [
+            ["$2.84M", "2.84M €", "2.84M", 2835779],
+            ["$211.99", "211.99 €", "211.99", 211.99],
+        ];
+    }
 
+    /**
+     * @dataProvider providerNumber
+     * @param $usd
+     * @param $eur
+     * @param $value
+     * @param $number
+     */
+    public function testMoneyFormat($usd, $eur, $value, $number)
+    {
+        $numberFormatter = $this->createMock(NumberFormatterInterface::class);
+        $numberFormatter->expects($this->exactly(2))
+            ->method('numberFormatter')
+            ->willReturn($value);
+        $moneyFormatter = new MoneyFormatter($numberFormatter);
+        $this->assertEquals($usd, $moneyFormatter->formatUsd($number));
+        $this->assertEquals($eur, $moneyFormatter->formatEur($number));
     }
 }

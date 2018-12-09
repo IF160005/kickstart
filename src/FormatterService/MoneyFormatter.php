@@ -24,7 +24,7 @@ class MoneyFormatter
      * @param float $number
      * @return string
      */
-    public function formatEur(float $number)
+    public function formatEur(float $number): string
     {
         return $this->numberFormatter->numberFormatter($number) ." €";
 
@@ -34,7 +34,7 @@ class MoneyFormatter
      * @param $number
      * @return string
      */
-    public function formatUsd(float $number)
+    public function formatUsd(float $number): string
     {
         $number = $this->numberFormatter->numberFormatter($number);
         return "$" . $number;
